@@ -1,0 +1,213 @@
+% Ovo je glavni fajl za generiranje predloska dokumenta doktorske disertacije Elektrotehnickog fakulteta u Sarajevu. 
+% Verzija: 24. februar 2016. godine 
+
+% Autor: Emir Sokic , esokic@etf.unsa.ba% 
+% Bazirano na predlosku koji se koristi na FER Zagreb
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% POSTAVKE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% NE MIJENJATI %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt,oneside, a4paper,usenames]{book}
+
+%Ovo su paketi koji se koriste za kompajliranje dokumenta
+%Vecina paketa je ukljucena po defaultu u texlive 2013 i novijim verzijama
+\usepackage{float}
+\usepackage{etex}
+\usepackage{xcolor}
+\usepackage[pdftex]{graphicx}
+\usepackage{rotating}
+\usepackage{epsfig}
+\usepackage{epstopdf}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{cmap}
+\usepackage[croatian]{babel}
+\usepackage[unicode]{hyperref}
+\usepackage{mathptmx}
+\usepackage{amscd}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{setspace} 
+\usepackage{hhline}
+\usepackage{enumerate}
+\usepackage{delarray}
+\usepackage{array}  
+\usepackage{tabularx} 
+\usepackage{multirow}  
+\usepackage[bf, font=small]{caption}
+\usepackage[labelfont=small, font=small]{subcaption}
+\usepackage{wasysym}
+\usepackage{subeqnarray}
+\usepackage{pdflscape} % setting page into landscape view
+\usepackage{enumitem} % for itemize lists
+\usepackage[toc,page]{appendix}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\usepackage{makeidx}
+\usepackage{nomencl}
+\usepackage{listings}
+\usepackage[numbered, framed, autolinebreaks]{mcode}
+\usepackage[numbered,framed]{matlab-prettifier}
+%\lstset{basicstyle=\ttfamily,breaklines=true}
+\usepackage[thinlines]{easytable}
+
+\usepackage{courier}
+% Podesavanje izgleda zaglavlja i podnozja strana
+\usepackage{fancyhdr} 
+
+\fancypagestyle{plain}{%
+  \fancyhf{}% Clear header/footer
+  \fancyfoot[OR]{{\thepage}}%
+  \fancyfoot[EL]{{\thepage}}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
+% required for printing index
+% use \index{name} in text
+%\usepackage{makeidx}
+%\makeindex
+% required for printing nomenclature
+% use \nomenclature{symbol}{description} in text
+%\usepackage{nomencl}
+%\makenomenclature
+%\renewcommand{\nomname}{Popis oznaka}
+
+
+%\pagestyle{fancyplain}
+
+
+%\rfoot{\thepage}
+% iskljucivanje broja strane iz Sadrzaja, Popisa slika i Popisa tabela
+\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}}
+\AtBeginDocument{\addtocontents{lof}{\protect\thispagestyle{empty}}}
+\AtBeginDocument{\addtocontents{lot}{\protect\thispagestyle{empty}}}
+
+%\rhead{\slshape \nouppercase \leftmark}
+%\lhead{} %delete left header
+
+
+%Podesavanje izgleda referenci
+\usepackage[square, numbers, sort]{natbib} 
+
+%Promjena naziva pojedinih poglavlja sa Hrvatskog na Bosanski
+% Bibliography u "Literatura"
+\addto\captionscroatian{%
+  \renewcommand{\chaptername}{}
+  \renewcommand{\bibname}{Literatura}
+  \renewcommand{\tablename}{Tabela}
+  \renewcommand{\nomname}{Popis oznaka}
+  \renewcommand{\indexname}{Indeks pojmova}
+  \renewcommand{\lstlistingname}{Program}
+}
+%"Popis tablica" u "Popis tabela"
+\addto\captionscroatian{\renewcommand{\listtablename}{Popis tabela}}
+\addto\captionscroatian{\renewcommand\appendixname{Prilog}}
+\addto\captionscroatian{\renewcommand\appendixpagename{Prilozi}}
+\renewcommand\appendixtocname{Prilozi}
+
+\makeindex
+\makenomenclature
+
+%\usepackage{etoolbox}
+%\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancyplain}}{}{}
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% OSNOVNI DOKUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frontmatter
+
+%%%%%%%%%%%%%%%%%%%% NASLOVNA STRANA %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+\begin{center}
+
+\includegraphics[width=0.25\textwidth]{etf-logo.png}~\\[0.1cm]
+\textsc{\Large Univerzitet u Sarajevu}\\[0.2cm]  
+\textsc{\Large Elektrotehnički fakultet}\\[0.2cm] 
+\textsc{\Large Odsjek za automatiku i elektroniku }\\[3cm]\HRule \\[0.5cm] 
+{\huge \bfseries Implementacija distantne zaštite korištenjem poligonalne karakteristike} \\[0.4cm] 
+\HRule \\[0.5cm]
+
+\textsc{\Large Projektni zadatak}\\[0.4cm]
+\textsc{\Large - Zaštita i upravljanje elektroenergetskih sistema - }\\[1.5cm]
+
+% Author and supervisor 
+\textbf{ 
+\Large Studenti:\\  
+\Large Džebo Amina 1462/16588\\
+\Large Kantić Faris 1499/17584 \\
+\Large Mijatović Nina 1556/17221 \\
+\Large Šalaka Nahla 1441/16902\\[1cm] 
+\Large Mentor: \\[0.2cm] 
+\Large Prof. dr. Izudin Džafić} 
+\vfill
+
+% Bottom of the page  
+{\large Sarajevo, \\januar, 2020.}
+
+\end{center} 
+\end{titlepage}
+
+%%%%%%%%%%%%%%% SADRŽAJ %%%%%%%%%%%%%%%%%%%%%%%
+%\clearpage
+\tableofcontents
+
+%%%%%%%%%%%%%%% POPIS SLIKA %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\clearpage
+\listoffigures
+\addcontentsline{toc}{chapter}{Popis slika}
+
+%%%%%%%%%%%%%%% POPIS TABELA %%%%%%%%%%%%%%%%%%%%%%%%%%
+%\clearpage
+\listoftables
+\addcontentsline{toc}{chapter}{Popis tabela}
+
+
+
+\cleardoublepage % start new page
+\pagestyle{fancyplain} % puts headers/footers back on
+\fancyhf{}
+\lhead{\nouppercase{\fancyplain{}{\leftmark}}}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\footrulewidth}{0.4pt} %draw foot line
+\lfoot{\slshape Zaštita i upravljanje EES, Projektni zadatak \#7}
+\rfoot{\thepage}
+\cfoot{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% POGLAVLJA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{poglavlje_1}
+\include{poglavlje_2}
+\include{poglavlje_3}
+\include{poglavlje_4}
+\include{poglavlje_5}
+\include{poglavlje_6}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backmatter
+
+
+%%%%%%%%%%%%%%%%%%%%%%% LITERATURA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addcontentsline{toc}{chapter}{Literatura}
+\bibliographystyle{IEEEtranETF} 
+\bibliography{literatura}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% INDEKS POJMOVA %%%%%%%%%%%%%%%%%%%%%%%%%
+%\addcontentsline{toc}{chapter}{Indeks pojmova}
+%\printindex 
+
+
+\end{document}

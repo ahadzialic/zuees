@@ -1,0 +1,41 @@
+\chapter{Implementacija}
+
+Nakon što se unesu podaci u GUI, te pokrene zaštita klikom na dugme \textbf{ „Pokreni zaštitu!“} u funkciji \textit{pokreni\_Callback} u pozadini GUI-a se učitavaju podaci u odgovarajuće varijable i šalju se u funkciju \textit{Glavna\_funkcija} koja prima sve te parametre i kao izlaz daje na kojim se fazama desio kvar, vrstu kvara i udaljenost na kojoj se desio kvar. Ta funkcija u nekoliko koraka pozivom drugih funkcija računa odgovarajuće vrijednosti. Kod funkcije je naveden ispod, a u nastavku se objašnjavaju funkcije od kojih se ona sastoji.
+
+\lstinputlisting[language=Matlab]{Kodovi/Glavna_funkcija.m}
+
+\section{Implementacija AD konverzije}
+
+Podaci o naponu i struji se generišu u stvarnosti preko AD konvertora koji dobija na ulaz stvarne vrijednosti i pretvara ih od 0 do $2^b-1$, gdje je \textit{b} zadani broj bita. Zato je potrebno izvršiti skaliranje u stvarne vrijednosti, a to radi funkcija \textit{$ADC\_Skaliranje$}.   
+
+\lstinputlisting[language=Matlab]{Kodovi/ADC_Skaliranje.m}
+
+
+\section{Implementacija metode najmanjih kvadrata za ekstrakciju signala}
+
+\lstinputlisting[language=Matlab]{Kodovi/Ekstrakcija_signala.m}
+
+Metoda najmanjih kvadrata je implementirana funkcijom \textit{Ekstrakcija\_signala} koja kao ulaz prima sljedeće parametre:
+
+\begin{itemize}
+    \item \textbf{uzorci} - diskretni vremenski signal 
+    \item \textbf{N} - broj uzoraka signala koji se posmatraju
+    \item \textbf{odUzorka} - od kojeg uzorka se posmatra signal
+    \item \textbf{Ts} - period uzorkovanja signala 
+    \item \textbf{ff} - fundamentalna frekvencija signala
+\end{itemize}
+
+Funkcija kao izlaz vraća amplitudu i fazu fundamentalne komponente. Sama implementacija je u skladu sa opisom metode u uvodnom poglavlju i može se jednostavno pratiti uz naznačene komentare u kodu. Ono što je specifično je pretpostavka da signal posjeduje pored fundamentalne komponente još 4 harmonika, što bi za većinu aplikacija trebalo biti dovoljno, jer amplitude sa porastom harmonika opadaju, te viši harmonici nemaju veliki uticaj na konačni signal. Također, za razliku od uvodnog opisa metode gdje su parametri vezani za fundamentalnu komponentu na pozicijama 4 i 5 u vektoru parametara, u kodu su postavljene na pozicije 1 i 2.
+
+\section{Implementacija poligonalne karakteristike}
+
+Nakon što se ekstrakcijom dobiju naponi i struje svake faze, njihovim dijeljenjem se dobiju impedanse faza. Te impedanse se šalju u funkciju \textit{Zastita} koja još prima i tačke poligonalne karakteristike, te na osnovu algoritma pojašnjenog u potpoglavlju \ref{poligon} se provjerava pripadnost impedansi zadanom poligonu. Kao izlaz se daju binarne vrijednosti za svaku fazu koje označavaju da li je zaštita proradila koje su signal releju da li treba reagovati. 
+
+\lstinputlisting[language=Matlab]{Kodovi/Zastita.m}
+
+\section{Implementacija detekcija kvara i računanje udaljenosti}
+
+Zadnji korak je određivanje vrste kvara i računanje udaljenosti. Na osnovu broja faza koje upadaju u poligonalnu karakteristiku određuje se vrsta kvara, pri čemu se ne provjerava da li je došlo do zemljospoja. Ono što je važnije je odrediti na kojoj se distanci desio kvar, a to se određuje prema formulama iz tabele \ref{tab:impedanse}. Kod je implementiran funkcijom \textit{vrstaKvara}.
+
+\lstinputlisting[language=Matlab]{Kodovi/vrstaKvara.m}
+
